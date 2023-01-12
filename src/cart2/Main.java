@@ -16,14 +16,14 @@ public class Main{
         "5. clear\t - remvoes all items from your cart\n"+
         "6. save\t\t - save your shopping cart for future use\n"+
         "7. exit\t\t - exits the shopping cart app\n"+
-        "8. users\t - lists all users with saved shopping carts\n");     
+        "8. users\t - lists all users with saved shopping carts");     
         Console cons = System.console();
         Boolean exit = true;
         Cart customer = new Cart(null);
         String dataDirectory = args[0];
 
         while(exit){
-            String input = cons.readLine("> ");
+            String input = cons.readLine("\n> ");
             String[] input_arr = input.toLowerCase().trim().split(" ", 2);
 
             
