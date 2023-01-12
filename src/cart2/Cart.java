@@ -58,9 +58,9 @@ public class Cart {
                 System.out.printf("%s removed from cart\n",cart.get(Integer.parseInt(junk[i])-1-j));
                 cart.remove(Integer.parseInt(junk[i])-1-j);
             }
-        }
-        
+        }        
     }
+    
     // clears shopping cart
     public void clear(){
         this.cart.removeAll(cart);
@@ -80,7 +80,6 @@ public class Cart {
     }
 
     // NEW METHODS FOR OPENING/CLOSING/CREATING FILES
-
     public void userLogin(String user, String folder) throws FileNotFoundException, IOException{        
         // create a path to the .txt file location
         user = user.toLowerCase().trim();
@@ -90,14 +89,12 @@ public class Cart {
         if(customerFile.exists()){
             FileReader fr = new FileReader(customerFile);
             BufferedReader br = new BufferedReader(fr);
-
             String line = br.readLine();
 
             br.close();
             fr.close();
             
             String[] nameItemSplit = line.trim().split(" ", 2);
-
             
             // incase an empty cart was saved
             if(nameItemSplit.length<2){
@@ -109,9 +106,7 @@ public class Cart {
                 String[] itemSplit = nameItemSplit[1].split(" ", 0);
 
                 List<String> fileItemList = new LinkedList<>();
-                for (String item: itemSplit){
-                    fileItemList.add(item);
-                }
+                for (String item: itemSplit){fileItemList.add(item);}
 
                 // initiallize variables with info from txt file
                 this.customerName = nameItemSplit[0];
@@ -126,8 +121,6 @@ public class Cart {
             System.out.println("New cart created, welcome "+this.customerName);
             list();            
         }
-        
-
     }
 
     public void saveCart(String folder) throws IOException{
@@ -150,9 +143,7 @@ public class Cart {
 
         } else{
             System.out.println("Please login in first before saving");
-            }
-        
-        
+            }           
     }
 
     public static void userList(String folder){
