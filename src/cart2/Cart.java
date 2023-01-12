@@ -1,6 +1,9 @@
 package cart2;
 import java.util.LinkedList;
 import java.util.List;
+
+import org.w3c.dom.DOMImplementation;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -61,22 +64,28 @@ public class Cart {
         }
         
     }
+    // clears shopping cart
+    public void clear(){
+        this.cart.removeAll(cart);
+        System.out.println("you cart has been cleared");
+    }
 
     // list items
     public void list(){
         if (cart.isEmpty()){
             System.out.println("You have nothing in your cart\n");
-        } else{                
+        } else{        
+            System.out.println("You cart contains the following items");        
             for (int i = 0; i < cart.size();i++){
             System.out.printf("%d. %s\n",i+1,cart.get(i));
             }
         }
     }
 
-    
-    
+    // NEW METHODS FOR OPENING/CLOSING/CREATING FILES
+
     public void userLogin(String user, String folder) throws FileNotFoundException, IOException{        
-        // create a path
+        // create a path to the .txt file location
         user = user.toLowerCase().trim();
         Path fileLocation = Paths.get(folder+"\\"+user+".txt");
         File customerFile = fileLocation.toFile();
@@ -91,24 +100,33 @@ public class Cart {
             fr.close();
             
             String[] nameItemSplit = line.trim().split(" ", 2);
-            String[] itemSplit = nameItemSplit[1].split(" ", 0);
 
-            List<String> fileItemList = new LinkedList<>();
-            for (String item: itemSplit){
-                fileItemList.add(item);
+            
+            // incase an empty cart was saved
+            if(nameItemSplit.length<2){
+                this.customerName = nameItemSplit[0];
+                this.loggedIn = true;           
+                list();
+            } else{
+
+                String[] itemSplit = nameItemSplit[1].split(" ", 0);
+
+                List<String> fileItemList = new LinkedList<>();
+                for (String item: itemSplit){
+                    fileItemList.add(item);
+                }
+
+                // initiallize variables with info from txt file
+                this.customerName = nameItemSplit[0];
+                this.cart=fileItemList;
+                this.loggedIn = true;           
+                list();
             }
-
-            this.customerName = nameItemSplit[0];
-            this.cart=fileItemList;
-            this.loggedIn = true;
-
-            System.out.println(this.customerName+" your cart contains the following items");
-            list();
             
         } else{
             this.customerName = user;
             this.loggedIn = true;
-            System.out.println(this.customerName);
+            System.out.println("New cart created, welcome "+this.customerName);
             list();            
         }
         
@@ -131,6 +149,8 @@ public class Cart {
             writer.flush();
             writer.close();
 
+            System.out.println("Your cart has been saved");
+
         } else{
             System.out.println("Please login in first before saving");
             }
@@ -138,6 +158,14 @@ public class Cart {
         
     }
 
-    
+    public static void userList(String folder){
+        File folderPath = new File(folder+"\\");
+        File[] listFiles = folderPath.listFiles();
+        
+        for(int i =0; i<listFiles.length;i++){
+            String fileName = listFiles[i].getName();
+            System.out.printf("%d. %s\n",i+1,fileName.substring(0,fileName.length()-4));
+        }
+    }   
 
 }
