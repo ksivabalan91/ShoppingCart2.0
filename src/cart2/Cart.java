@@ -60,6 +60,35 @@ public class Cart {
             }
         }        
     }
+
+    // new delete method - using name of items to delete instead of index
+    public void newDelete(String input_arr){                                                  // takes items as string and returns string
+        String temp = "";                                                                       // temporary temp variable to store output as string
+        String[] junk = input_arr.trim().split(",", 0);                            // split items list by "," delimiter to store items in an string array junk[]
+        List<String> junkName = new LinkedList<>();                                             // create new string array 
+        boolean isEmpty = true;
+        for (int i = 0;i< junk.length;i++ ){
+            if ((Integer.parseInt(junk[i].trim()))>cart.size()){
+                temp = temp+ "\nIncorrect item index\n";
+                continue;
+            } else{
+                junkName.add(cart.get(Integer.parseInt(junk[i].trim())-1));                     // store item name in junkName list
+                isEmpty = false;
+            }            
+        }
+                
+        if(!isEmpty){
+            for (String item:junkName){                                                             // for loop to remove all items
+                int removeThisItem = cart.indexOf(item);                                            // locate item index via name of item
+                temp = temp + cart.get(removeThisItem)+ " removed from cart\n";                      
+                cart.remove(removeThisItem);                                                        // using .remove method to delete the item and pass response to temp string
+            }
+        }
+
+        System.out.println(temp);                                                                            // return compiled responses in the string temp
+    }
+    
+
     
     // clears shopping cart
     public void clear(){

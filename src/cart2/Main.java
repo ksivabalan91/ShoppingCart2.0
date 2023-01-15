@@ -30,7 +30,7 @@ public class Main{
             switch(input_arr[0].trim()){
                 //shopping cart methods
                 case "add": customer.add(input_arr[1]); break;
-                case "delete","remove":  customer.delete(input_arr[1]);break;
+                case "delete","remove":  customer.newDelete(input_arr[1]);break;
                 case "clear": customer.clear();break;
                 case "list": customer.list();break;
                 // loadind and saving databases
