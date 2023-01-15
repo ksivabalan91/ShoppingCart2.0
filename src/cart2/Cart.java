@@ -52,7 +52,7 @@ public class Cart {
         String[] junk = input_arr.split(",", 0);
 
         for (int i = 0,j=0; i<junk.length;i++,j++){
-            if(Integer.parseInt(junk[i])-j  > cart.size()){
+            if(Integer.parseInt(junk[i].trim())-j  > cart.size()){
                 System.out.println("Incorrect item index\n");
             } else{
                 System.out.printf("%s removed from cart\n",cart.get(Integer.parseInt(junk[i])-1-j));
@@ -103,10 +103,10 @@ public class Cart {
                 list();
             } else{
 
-                String[] itemSplit = nameItemSplit[1].split(" ", 0);
+                String[] itemSplit = nameItemSplit[1].split(",", 0);
 
                 List<String> fileItemList = new LinkedList<>();
-                for (String item: itemSplit){fileItemList.add(item);}
+                for (String item: itemSplit){fileItemList.add(item.trim());}
 
                 // initiallize variables with info from txt file
                 this.customerName = nameItemSplit[0];
@@ -129,9 +129,15 @@ public class Cart {
             FileWriter writer = new FileWriter(folder+"\\"+this.customerName+".txt");
         
             String itemString = "";
-            for (String item:this.cart){
-                itemString = itemString + item +" ";
+
+            for(int i=0; i <cart.size()-1;i++){
+                itemString += cart.get(i) + ", ";
             }
+            itemString += cart.get(cart.size()-1);
+            
+            // for (String item:this.cart){
+            //     itemString = itemString + item +" ";
+            // }
             
             writer.write(this.customerName+" ");
             writer.write(itemString);
