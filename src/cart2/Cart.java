@@ -1,12 +1,6 @@
 package cart2;
-import java.util.LinkedList;
-import java.util.List;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.util.*;
+import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
@@ -62,7 +56,7 @@ public class Cart {
     }
 
     // new delete method - using name of items to delete instead of index
-    public void newDelete(String input_arr){                                                  // takes items as string and returns string
+    public void newDelete(String input_arr){                                                  // takes items as string and returns nothing
         String temp = "";                                                                       // temporary temp variable to store output as string
         String[] junk = input_arr.trim().split(",", 0);                            // split items list by "," delimiter to store items in an string array junk[]
         List<String> junkName = new LinkedList<>();                                             // create new string array 
@@ -86,8 +80,7 @@ public class Cart {
         }
 
         System.out.println(temp);                                                                            // return compiled responses in the string temp
-    }
-    
+    }   
 
     
     // clears shopping cart
@@ -163,10 +156,6 @@ public class Cart {
                 itemString += cart.get(i) + ", ";
             }
             itemString += cart.get(cart.size()-1);
-            
-            // for (String item:this.cart){
-            //     itemString = itemString + item +" ";
-            // }
             
             writer.write(this.customerName+" ");
             writer.write(itemString);

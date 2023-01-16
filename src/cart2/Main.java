@@ -20,7 +20,9 @@ public class Main{
         Console cons = System.console();
         Boolean exit = true;
         Cart customer = new Cart(null);
-        String dataDirectory = args[0];
+        String dataDirectory = "cartdb";
+
+        if(args.length>0){dataDirectory = args[0];}
 
         while(exit){
             String input = cons.readLine("\n> ");
@@ -33,7 +35,7 @@ public class Main{
                 case "delete","remove":  customer.newDelete(input_arr[1]);break;
                 case "clear": customer.clear();break;
                 case "list": customer.list();break;
-                // loadind and saving databases
+                // loading and saving databases
                 case "login": customer.userLogin(input_arr[1], dataDirectory); break;
                 case "save": customer.saveCart(dataDirectory);break;
                 case "users": Cart.userList(dataDirectory);break;
@@ -43,7 +45,7 @@ public class Main{
                     System.out.println("Thank you for shopping\n");
                     break;
                 default:
-                    System.out.println("Input valid commands: 'add','delete','list','exit'\n");
+                    System.out.println("Input valid commands: 'add','delete','list','exit','login,'users','clear'\n");
             }
         }
     }
